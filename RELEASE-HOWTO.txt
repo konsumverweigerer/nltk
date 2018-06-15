@@ -7,7 +7,7 @@ Building an NLTK distribution
    - Optionally test demonstration code locally
      make demotest
    - Optionally test individual modules:
-     tox-3.4 -e py34 nltk.package.module
+     tox-3.6 -e py36 nltk.package.module
    - Check the data index is up-to-date:
      cd ../nltk_data; make; push
 
@@ -21,7 +21,7 @@ Building an NLTK distribution
 
 3. Build Documentation
    - Check the copyright year is correct and update if necessary
-     e.g. ./tools/global_replace.py 2001-2015 2001-2017
+     e.g. ./tools/global_replace.py 2001-2015 2001-2018
    - Check that installation instructions are up-to-date
      (including the range of Python versions that are supported)
      edit web/install.rst setup.py
@@ -52,9 +52,10 @@ Building an NLTK distribution
 5. Release
    - Make the distributions
      make clean; make dist; ls dist/
-   - twine register nltk
-     twine upload dist/*
-   - Check upload at https://pypi.python.org/pypi/nltk
+   - Upload the distributions
+     python -m twine upload -r pypi dist/*
+   - Check upload
+     https://pypi.python.org/pypi/nltk
 
 6. Announce
    - Post announcement to NLTK the mailing lists:

@@ -1,6 +1,6 @@
 # Natural Language Toolkit: Sinica Treebank Reader
 #
-# Copyright (C) 2001-2017 NLTK Project
+# Copyright (C) 2001-2018 NLTK Project
 # Author: Steven Bird <stevenbird1@gmail.com>
 # URL: <http://nltk.org/>
 # For license information, see LICENSE.TXT
@@ -18,7 +18,7 @@ at http://www.sinica.edu.tw/SinicaCorpus/modern_e_wordtype.html
 Language and Knowledge Processing Group, Institute of Information
 Science, Academia Sinica
 
-It is distributed with the Natural Language Toolkit under the terms of
+The data is distributed with the Natural Language Toolkit under the terms of
 the Creative Commons Attribution-NonCommercial-ShareAlike License
 [http://creativecommons.org/licenses/by-nc-sa/2.5/].
 

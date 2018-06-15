@@ -1,6 +1,6 @@
 # Natural Language Toolkit: Utility functions
 #
-# Copyright (C) 2001-2017 NLTK Project
+# Copyright (C) 2001-2018 NLTK Project
 # Author: Edward Loper <edloper@gmail.com>
 # URL: <http://nltk.org/>
 # For license information, see LICENSE.TXT
@@ -491,7 +491,7 @@ class ZipFilePathPointer(PathPointer):
         entry = normalize_resource_name(entry, True, '/').lstrip('/')
 
         # Check that the entry exists:
-        if entry:
+        if entry != '.':
             try:
                 zipfile.getinfo(entry)
             except Exception:

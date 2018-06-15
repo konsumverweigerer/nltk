@@ -1,6 +1,6 @@
 # Natural Language Toolkit: WordNet Browser Application
 #
-# Copyright (C) 2001-2017 NLTK Project
+# Copyright (C) 2001-2018 NLTK Project
 # Author: Jussi Salmela <jtsalmela@users.sourceforge.net>
 #         Paul Bone <pbone@students.csse.unimelb.edu.au>
 # URL: <http://nltk.org/>
@@ -281,7 +281,6 @@ WordNet Browser Utilities.
 This provides a backend to both wxbrowse and browserver.py.
 """
 
-
 ################################################################################
 #
 # Main logic for wordnet browser.
@@ -699,11 +698,11 @@ def page_from_word(word):
     """
     Return a HTML page for the given word.
 
-    :param word: The currently active word
     :type word: str
+    :param word: The currently active word
     :return: A tuple (page,word), where page is the new current HTML page
-             to be sent to the browser and
-             word is the new current word
+        to be sent to the browser and
+        word is the new current word
     :rtype: A tuple (str,str)
     """
     return page_from_reference(Reference(word))
@@ -765,7 +764,6 @@ def page_from_reference(href):
     return body, word
 
 
-
 #####################################################################
 # Static pages
 #####################################################################
@@ -801,7 +799,7 @@ def get_static_web_help_page():
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
      <!-- Natural Language Toolkit: Wordnet Interface: Graphical Wordnet Browser
-            Copyright (C) 2001-2017 NLTK Project
+            Copyright (C) 2001-2018 NLTK Project
             Author: Jussi Salmela <jtsalmela@users.sourceforge.net>
             URL: <http://nltk.org/>
             For license information, see LICENSE.TXT -->
@@ -872,7 +870,7 @@ def get_static_index_page(with_shutdown):
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"  "http://www.w3.org/TR/html4/frameset.dtd">
 <HTML>
      <!-- Natural Language Toolkit: Wordnet Interface: Graphical Wordnet Browser
-            Copyright (C) 2001-2017 NLTK Project
+            Copyright (C) 2001-2018 NLTK Project
             Author: Jussi Salmela <jtsalmela@users.sourceforge.net>
             URL: <http://nltk.org/>
             For license information, see LICENSE.TXT -->
@@ -906,7 +904,7 @@ def get_static_upper_page(with_shutdown):
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <!-- Natural Language Toolkit: Wordnet Interface: Graphical Wordnet Browser
-        Copyright (C) 2001-2017 NLTK Project
+        Copyright (C) 2001-2018 NLTK Project
         Author: Jussi Salmela <jtsalmela@users.sourceforge.net>
         URL: <http://nltk.org/>
         For license information, see LICENSE.TXT -->
