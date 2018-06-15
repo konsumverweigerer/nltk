@@ -13,6 +13,7 @@ import re
 import json
 import time
 import socket
+import os
 
 from nltk.internals import find_jar_iter, config_java, java, _java_options
 
@@ -75,6 +76,7 @@ class CoreNLPServer(object):
                 port = try_port(9000)
             except socket.error:
                 port = try_port()
+                corenlp_options.append("-port")
                 corenlp_options.append(str(port))
         else:
             try_port(port)
@@ -120,8 +122,8 @@ class CoreNLPServer(object):
                 cmd,
                 classpath=self._classpath,
                 blocking=False,
-                stdout='pipe',
-                stderr='pipe',
+                stdout=open(os.devnull, 'w'),
+                stderr=open(os.devnull, 'w'),
             )
         finally:
             # Return java configurations to their default values.
@@ -137,7 +139,7 @@ class CoreNLPServer(object):
                 'The error was: {}'.format(stderrdata.decode('ascii'))
             )
 
-        for i in range(30):
+        for i in range(60):
             try:
                 response = requests.get(requests.compat.urljoin(self.url, 'live'))
             except requests.exceptions.ConnectionError:
@@ -150,7 +152,7 @@ class CoreNLPServer(object):
                 'Could not connect to the server.'
             )
 
-        for i in range(60):
+        for i in range(120):
             try:
                 response = requests.get(requests.compat.urljoin(self.url, 'ready'))
             except requests.exceptions.ConnectionError:
@@ -188,7 +190,7 @@ class GenericCoreNLPParser(ParserI, TokenizerI, TaggerI):
 
         if tagtype not in ['pos', 'ner', None]:
             raise ValueError("tagtype must be either 'pos', 'ner' or None")
-            
+
         self.tagtype = tagtype
 
         self.session = requests.Session()
@@ -251,7 +253,7 @@ class GenericCoreNLPParser(ParserI, TokenizerI, TaggerI):
                 'properties': json.dumps(default_properties),
             },
             data=data.encode(self.encoding),
-            timeout=60,
+            timeout=20,
         )
 
         response.raise_for_status()
@@ -351,7 +353,7 @@ class GenericCoreNLPParser(ParserI, TokenizerI, TaggerI):
 
         Takes multiple sentences as a list where each sentence is a list of
         tokens.
-        
+
         :param sentences: Input sentences to tag
         :type sentences: list(list(str))
         :rtype: list(list(tuple(str, str))
@@ -386,14 +388,14 @@ class GenericCoreNLPParser(ParserI, TokenizerI, TaggerI):
         Tag multiple sentences.
 
         Takes multiple sentences as a list where each sentence is a string.
-        
+
         :param sentences: Input sentences to tag
         :type sentences: list(str)
         :rtype: list(list(list(tuple(str, str)))
         """
         default_properties = {'ssplit.isOneSentence': 'true',
                               'annotators': 'tokenize,ssplit,' }
-                              
+
         # Supports only 'pos' or 'ner' tags.
         assert self.tagtype in ['pos', 'ner']
         default_properties['annotators'] += self.tagtype
@@ -759,7 +761,7 @@ def setup_module(module):
     from nose import SkipTest
     raise SkipTest('Skipping all CoreNLP tests.')
     global server
-    
+
     try:
         server = CoreNLPServer(port=9000)
     except LookupError as e:
