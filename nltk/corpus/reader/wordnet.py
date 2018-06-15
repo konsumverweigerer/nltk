@@ -40,6 +40,7 @@ from collections import defaultdict, deque
 
 from six import iteritems
 from six.moves import range
+from six import StringIO
 
 from nltk.corpus.reader import CorpusReader
 from nltk.util import binary_search_file as _binary_search_file
@@ -1327,8 +1328,8 @@ class WordNetCorpusReader(CorpusReader):
             pos = ADJ
         if self._data_file_map.get(pos) is None:
             fileid = 'data.%s' % self._FILEMAP[pos]
-            self._data_file_map[pos] = self.open(fileid)
-        return self._data_file_map[pos]
+            self._data_file_map[pos] = self.open(fileid).read()
+        return StringIO(self._data_file_map[pos])
 
     def synset_from_pos_and_offset(self, pos, offset):
         # Check to see if the synset is in the cache
