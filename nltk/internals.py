@@ -690,8 +690,15 @@ def find_jar_iter(name_pattern, path_to_jar=None, env_vars=(),
                     if re.match(name_pattern, filename):
                         if verbose:
                             print('[Found %s: %s]' % (filename, path_to_jar))
-                yielded = True
-                yield path_to_jar
+                        yielded = True
+                        yield path_to_jar
+                elif os.path.isdir(path_to_jar):
+                    try:
+                        for p in find_jar_iter(name_pattern, path_to_jar=None, env_vars=env_vars,
+                                searchpath=(path_to_jar,), url=url, verbose=verbose, is_regex=is_regex):
+                            yield p
+                    except LookupError as e:
+                        pass
         else:
             path_to_jar = os.path.join(directory, name_pattern)
             if os.path.isfile(path_to_jar):
